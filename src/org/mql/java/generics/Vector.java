@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 //T extends Comparable<T>
-public class Vector<T> implements List<T>, Iterable<T> {
+public class Vector<T> implements List<T> {
 	private Object data[];
 
 	public Vector() {
@@ -100,7 +100,7 @@ public class Vector<T> implements List<T>, Iterable<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+
 	public void sort(Comparator<T> comparator) {
 		int size = size();
 		Object[] sortedArray = new Object[size];
@@ -120,19 +120,18 @@ public class Vector<T> implements List<T>, Iterable<T> {
 
 		data = (T[]) sortedArray;
 	}
-	@Override
-	public boolean isSorted(Comparator<T> comparator) {
-        for (int i = 0; i < size() - 1; i++) {
-            T currentValue = get(i);
-            T nextValue = get(i + 1);
-            if (comparator.compare(currentValue, nextValue) > 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-	
+	public boolean isSorted(Comparator<T> comparator) {
+		for (int i = 0; i < size() - 1; i++) {
+			T currentValue = get(i);
+			T nextValue = get(i + 1);
+			if (comparator.compare(currentValue, nextValue) > 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public Iterator<T> iterator() {
 		return new VectorPoiter();

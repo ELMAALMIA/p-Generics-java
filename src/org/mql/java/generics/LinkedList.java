@@ -1,9 +1,9 @@
 package org.mql.java.generics;
 
-import java.util.Comparator;
+
 import java.util.Iterator;
 
-public class LinkedList<T> implements List<T>, Iterable<T> {
+public class LinkedList<T> implements List<T> {
 	private T value;
 	private LinkedList<T> next;
 
@@ -72,19 +72,19 @@ public class LinkedList<T> implements List<T>, Iterable<T> {
 	@Override
 	public void add(int index, T item) {
 		if (index == 0) {
-	        LinkedList<T> newList = new LinkedList<>(this.value);
-	        newList.next = this.next;
-	        this.value = item;
-	        this.next = newList;
-	    } else if (index == size()) {
-	        if (next == null) {
-	            next = new LinkedList<>(item);
-	        } else {
-	            next.add(0, item);
-	        }
-	    } else if (next != null) {
-	        next.add(index - 1, item);
-	    }
+			LinkedList<T> newList = new LinkedList<>(this.value);
+			newList.next = this.next;
+			this.value = item;
+			this.next = newList;
+		} else if (index == size()) {
+			if (next == null) {
+				next = new LinkedList<>(item);
+			} else {
+				next.add(0, item);
+			}
+		} else if (next != null) {
+			next.add(index - 1, item);
+		}
 
 	}
 
@@ -121,24 +121,6 @@ public class LinkedList<T> implements List<T>, Iterable<T> {
 		value = null;
 		next = null;
 
-	}
-
-	@Override
-	public void sort(Comparator<T> comparator) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isSorted(Comparator<T> comparator) {
-		for (int i = 0; i < size() - 1; i++) {
-			T currentValue = get(i);
-			T nextValue = get(i + 1);
-			if (comparator.compare(currentValue, nextValue) > 0) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	@Override

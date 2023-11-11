@@ -14,7 +14,7 @@ class ListTests {
 		data.add("Une chaîne");
 		data.add(20);
 		data.add(12.5);
-		
+
 		assertEquals(3, data.size());
 	}
 
@@ -24,9 +24,9 @@ class ListTests {
 		data.add(25.3);
 		data.add(20.);
 		data.add(12.5);
-		
+
 		assertEquals(25.3, data.get(0));
-		
+
 	}
 
 }

@@ -102,19 +102,16 @@ class VectorTests {
 		data.add(12.5);
 		assertEquals(false, data.contains(12.));
 	}
-	
-	
-	@Test 
+
+	@Test
 	void testShort() {
-		List<Double> data = new Vector<>();
+		Vector<Double> data = new Vector<>();
 		data.add(25.3);
 		data.add(20.);
 		data.add(12.5);
 		data.sort(Comparator.naturalOrder());
-  
+
 		assertEquals(true, data.isSorted(Comparator.naturalOrder()));
 	}
-	 
-	
 
 }
