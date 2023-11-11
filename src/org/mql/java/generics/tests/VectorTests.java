@@ -2,6 +2,8 @@ package org.mql.java.generics.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Comparator;
+
 import org.junit.jupiter.api.Test;
 import org.mql.java.generics.List;
 import org.mql.java.generics.Vector;
@@ -74,7 +76,7 @@ class VectorTests {
 		data.add(25.3);
 		data.add(20.);
 		data.add(12.5);
-		assertEquals(2, data.indexOf(20.));
+		assertEquals(1, data.indexOf(20.));
 		assertEquals(3, data.size());
 	}
 
@@ -100,6 +102,19 @@ class VectorTests {
 		data.add(12.5);
 		assertEquals(false, data.contains(12.));
 	}
+	
+	
+	@Test 
+	void testShort() {
+		List<Double> data = new Vector<>();
+		data.add(25.3);
+		data.add(20.);
+		data.add(12.5);
+		data.sort(Comparator.naturalOrder());
+  
+		assertEquals(true, data.isSorted(Comparator.naturalOrder()));
+	}
+	 
 	
 
 }

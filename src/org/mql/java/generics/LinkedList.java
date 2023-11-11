@@ -1,8 +1,9 @@
 package org.mql.java.generics;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
-public class LinkedList<T> implements List<T> , Iterable<T>{
+public class LinkedList<T> implements List<T>, Iterable<T> {
 	private T value;
 	private LinkedList<T> next;
 
@@ -46,21 +47,21 @@ public class LinkedList<T> implements List<T> , Iterable<T>{
 
 	@Override
 	public T remove(int index) {
-		T itemRemoved =null;
-		 if (index == 0) {
-		         itemRemoved = value;
-		        if (next != null) {
-		            value = next.value;
-		            next = next.next;
-		        } else {
-		            value = null;
-		        }
-		        return itemRemoved;
-		    } else if (next != null) {
-		        return next.remove(index - 1);
-		    } else {
-		        return itemRemoved;
-		    }
+		T itemRemoved = null;
+		if (index == 0) {
+			itemRemoved = value;
+			if (next != null) {
+				value = next.value;
+				next = next.next;
+			} else {
+				value = null;
+			}
+			return itemRemoved;
+		} else if (next != null) {
+			return next.remove(index - 1);
+		} else {
+			return itemRemoved;
+		}
 	}
 
 	@Override
@@ -69,92 +70,100 @@ public class LinkedList<T> implements List<T> , Iterable<T>{
 	}
 
 	@Override
-
-		public void add(int index, T item) {
-		    if (index == 0) {
-		        LinkedList<T> list = new LinkedList<>(item);
-		        list.next = this.next;
-		        this.next = list;
-		    } else if (next != null) {
-		        next.add(index - 1, item);
-		    }
-		
+	public void add(int index, T item) {
+		if (index == 0) {
+	        LinkedList<T> newList = new LinkedList<>(this.value);
+	        newList.next = this.next;
+	        this.value = item;
+	        this.next = newList;
+	    } else if (index == size()) {
+	        if (next == null) {
+	            next = new LinkedList<>(item);
+	        } else {
+	            next.add(0, item);
+	        }
+	    } else if (next != null) {
+	        next.add(index - 1, item);
+	    }
 
 	}
 
 	@Override
 	public int indexOf(T item) {
 		if (item.equals(value)) {
-	        return 0;
-	    } else if (next != null) {
-	        int index = next.indexOf(item);
-	        return (index == -1) ? -1 : 1 + index;
-	    } else {
-	        return -1;
-	    }
+			return 0;
+		} else if (next != null) {
+			int index = next.indexOf(item);
+			return (index == -1) ? -1 : 1 + index;
+		} else {
+			return -1;
+		}
 	}
 
 	@Override
 	public boolean contains(T item) {
 		return indexOf(item) != -1;
-	
+
 	}
 
 	@Override
 	public void replace(int index, T item) {
-		 if (index == 0) {
-		        value = item;
-		    } else if (next != null) {
-		        next.replace(index - 1, item);
-		    }
+		if (index == 0) {
+			value = item;
+		} else if (next != null) {
+			next.replace(index - 1, item);
+		}
 
 	}
-
-//	@Override
-//	public Iterator<T> iterator() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	@Override
 	public void clear() {
-		 value = null;
-		    next = null;
+		value = null;
+		next = null;
 
 	}
 
 	@Override
-	public void sort() {
+	public void sort(Comparator<T> comparator) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
+	@Override
+	public boolean isSorted(Comparator<T> comparator) {
+		for (int i = 0; i < size() - 1; i++) {
+			T currentValue = get(i);
+			T nextValue = get(i + 1);
+			if (comparator.compare(currentValue, nextValue) > 0) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public Iterator<T> iterator() {
-	    return new LinkedListPointer(this);
+		return new LinkedListPointer(this);
 	}
 
 	private class LinkedListPointer implements Iterator<T> {
-	    private LinkedList<T> current;
+		private LinkedList<T> current;
 
-	    public LinkedListPointer(LinkedList<T> list) {
-	        this.current = list;
-	    }
+		public LinkedListPointer(LinkedList<T> list) {
+			this.current = list;
+		}
 
-	    @Override
-	    public boolean hasNext() {
-	        return current != null;
-	    }
+		@Override
+		public boolean hasNext() {
+			return current != null;
+		}
 
-	    @Override
-	    public T next() {
-	        T element = current.value;
-	        current = current.next;
-	        return element;
-	    }
+		@Override
+		public T next() {
+			T element = current.value;
+			current = current.next;
+			return element;
+		}
 	}
-
-
 
 }

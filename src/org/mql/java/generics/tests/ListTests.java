@@ -26,6 +26,7 @@ class ListTests {
 		data.add(12.5);
 		
 		assertEquals(25.3, data.get(0));
+		
 	}
 
 }

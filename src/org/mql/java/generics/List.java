@@ -1,6 +1,6 @@
 package org.mql.java.generics;
 
-
+import java.util.Comparator;
 
 public interface List<T> {
 
@@ -22,9 +22,10 @@ public interface List<T> {
 
 	public void replace(int index, T item);
 
-//public Iterator<T> iterator();
-
 	public void clear();
-	public void  sort(); 
-    
+
+	public void sort(Comparator<T> comparator);
+
+	public boolean isSorted(Comparator<T> comparator);
+
 }

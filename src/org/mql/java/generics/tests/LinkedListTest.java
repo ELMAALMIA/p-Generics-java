@@ -48,19 +48,20 @@ class LinkedListTest {
         assertEquals(15.0, list.get(1));
     }
 
-    // add with index
-//    @Test
-//    void testLinkedListAddByIndex() {
-//        List<Double> list = new LinkedList<>();
-//        list.add(5.0);
-//        list.add(15.0);
-//        list.add(25.0);
-//
-//        list.add(1, 10.0);
-//
-//        assertEquals(10.0, list.get(1));
-//        assertEquals(15.0, list.get(2));
-//    }
+   //  add with index
+    @Test
+    void testLinkedListAddByIndex() {
+        List<Double> list = new LinkedList<>();
+        list.add(5.0);
+        list.add(15.0);
+        list.add(25.0);
+
+        list.add(1, 10.0);
+        assertEquals(5.0, list.get(0));
+        assertEquals(10.0, list.get(1));
+        assertEquals(15.0, list.get(2));
+        assertEquals(4, list.size());
+    }
 
     
     //index of element

@@ -1,5 +1,6 @@
 package org.mql.java.generics;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 //T extends Comparable<T>
@@ -100,26 +101,38 @@ public class Vector<T> implements List<T>, Iterable<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void sort() {
-//		int size = size();
-//		Object[] sortedArray = new Object[size];
-//		sortedArray[0] = data[0];
-//		for (int i = 1; i < size; ++i) {
-//			T itemShort = (T) data[i];
-//		    int j = i - 1;
-//
-//		    while (j >= 0 && itemShort.compareTo((T) sortedArray[j]) < 0) {
-//		    	sortedArray[j + 1] = sortedArray[j];
-//		        j = j - 1;
-//		    }
-//
-//		    sortedArray[j + 1] = itemShort;
-//		}
-//
-//		data = sortedArray;
+	public void sort(Comparator<T> comparator) {
+		int size = size();
+		Object[] sortedArray = new Object[size];
+		sortedArray[0] = data[0];
 
+		for (int i = 1; i < size; ++i) {
+			T itemShort = (T) data[i];
+			int j = i - 1;
+
+			while (j >= 0 && comparator.compare(itemShort, (T) sortedArray[j]) < 0) {
+				sortedArray[j + 1] = sortedArray[j];
+				j = j - 1;
+			}
+
+			sortedArray[j + 1] = itemShort;
+		}
+
+		data = (T[]) sortedArray;
 	}
+	@Override
+	public boolean isSorted(Comparator<T> comparator) {
+        for (int i = 0; i < size() - 1; i++) {
+            T currentValue = get(i);
+            T nextValue = get(i + 1);
+            if (comparator.compare(currentValue, nextValue) > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+	
 	@Override
 	public Iterator<T> iterator() {
 		return new VectorPoiter();
